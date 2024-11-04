@@ -1,107 +1,125 @@
-//masukan package yang dibutuhkan aplikasi
-import 'package:english_words/english_words.dart';
-//pake bahasa inggris
 import 'package:flutter/material.dart';
-//paket untuk material ui
-import 'package:provider/provider.dart';
-//paket untuk interaksi
+import 'package:flutter/services.dart';
 
-//fungsi main (fungsi utama)
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(const MyApp());
 
-//membuat abstrak aplikasi dari stateleswidget (templat aplikasi), aplikasi bernama MyApp
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-//bawah aplikasi ini aakan tetap,  tidak baerubah setalah di - build
 
-//mengganti nilai lama yang sudah ada di templat , dengan nilai nilai yg baru (replace / overwrite)
   @override
   Widget build(BuildContext context) {
-    // fungsi nuild adalah fungsi yang membangun ui(mengatur posisi widget dan seterusmya)
-    //changenotifierprovider mendergarkan/ mendeteksi semua interaksi yang terjadi di aplikasi+
-
-    return ChangeNotifierProvider(
-      create: (context) =>
-          MyAppState(), //membuat satu state yang bernama myappstate
-      child: MaterialApp(
-        //pada state ini, mengunakan style desain materialui
-        title: 'Namer App', //diberi judul namer app
-        theme: ThemeData(
-          // data tema aplikasi, diberi warna deeporange
-          useMaterial3: true, //versi materialui yang dipakai verssi 3
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 255, 251, 0)),
+    return MaterialApp( // Root widget
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('My Home Page'),
         ),
-        home: MyHomePage(),
-      ),
-    );
-  }
-}
-
-//mendefinisikan isi myappstate
-class MyAppState extends ChangeNotifier {
-  //state myappstate diisi dengan 2 kata random yang digabungkan. kata rnadom tsb disimpan di variable wordpair
-  var current = WordPair.random();
-}
-
-//memuat layout pada halaman
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    var appState = context.watch<MyAppState>();
-    var pair = appState.current;
-
-    return Scaffold(
-      //
-      body: Column(
-        children: [
-          Text('A random idea:'),
-          BigCard(pair: pair),
-          ElevatedButton(
-            onPressed: () {
-              print('button pressed!');
+        body: Center(
+          child: Builder(
+            builder: (context) {
+              return Column(
+                children: [
+                  const Text('Hello, World!'),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      print('Click!');
+                    },
+                    child: const Text('A button'),
+                  ),
+                ],
+              );
             },
-            child: Text('Next'),
           ),
-        ],
-      ),
-    );
-  }
-}
-
-class BigCard extends StatelessWidget {
-  //widget atau bigcard
-  const BigCard({
-    super.key,
-    required this.pair,
-  });
-
-  final WordPair pair;
-
-  // ...
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final style = theme.textTheme.displayMedium!.copyWith(
-      color: theme.colorScheme.onPrimary,
-    );
-
-    return Card(
-      color: theme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-
-        // ↓ Make the following change.
-        child: Text(
-          pair.asLowerCase,
-          style: style,
-          semanticsLabel: "${pair.first} ${pair.second}",
         ),
       ),
     );
   }
 }
-// ...
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
+    return Scaffold(
+      appBar: AppBar(
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          //
+          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+          // action in the IDE, or press "p" in the console), to see the
+          // wireframe for each widget.
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+              'You have pushed the button this many times:',
+            ),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
