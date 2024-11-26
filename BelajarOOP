@@ -1,0 +1,43 @@
+// Class Siswa
+class Siswa {
+  // Properties
+  String nama;
+  String kelas;
+  int umur;
+  double nilaiRataRata;
+
+  // Konstruktor
+  Siswa(this.nama, this.kelas, this.umur, this.nilaiRataRata);
+
+  // Method untuk menampilkan nama siswa
+  void tampilkanNama() {
+    print('Nama siswa: $nama');
+  }
+
+  // Method untuk menampilkan detail lengkap siswa
+  void tampilkanDetail() {
+    print('Detail Siswa:');
+    print('Nama: $nama');
+    print('Kelas: $kelas');
+    print('Umur: $umur');
+    print('Nilai Rata-rata: $nilaiRataRata');
+  }
+}
+
+// Fungsi main
+void main() {
+  // Membuat objek siswa pertama
+  var siswa1 = Siswa('RENALDI', '10A', 16, 88.5);
+  siswa1.tampilkanNama(); // Output: Nama siswa: Andi
+  siswa1.tampilkanDetail(); // Menampilkan detail lengkap siswa pertama
+
+  // Membuat objek siswa kedua
+  var siswa2 = Siswa('REVAL', '11B', 17, 92.3);
+  siswa2.tampilkanNama(); // Output: Nama siswa: Budi
+  siswa2.tampilkanDetail(); // Menampilkan detail lengkap siswa kedua
+
+  // Membuat objek siswa ketiga
+  var siswa3 = Siswa('REPAL', '12C', 18, 85.7);
+  siswa3.tampilkanNama(); // Output: Nama siswa: Citra
+  siswa3.tampilkanDetail(); // Menampilkan detail lengkap siswa ketiga
+}
